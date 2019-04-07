@@ -19,4 +19,9 @@ module.exports = app => {
   // 文章
   router.resources('articles', '/api/articles', controller.articles);
 
+  // 阅读数和评论量
+  router.get('/api/articles/pv/:id', controller.articles.addPv);
+  router.post('/api/articles/comment/:id', controller.articles.AddComment);
+
+
 };
