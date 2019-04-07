@@ -9,4 +9,11 @@ module.exports = app => {
   router.post('/api/users/signup', controller.users.signup);
   router.post('/api/users/signin', controller.users.signin);
   router.get('/api/users/signout', controller.users.signout);
+
+  router.resources('categories', '/api/categories', controller.categories);
+  // router.get('/api/users/categories', controller.categories.index);
+  // router.get('/api/users/categories', controller.categories.create);
+  // router.get('/api/users/categories/:id', controller.categories.edit);
+  // router.get('/api/users/categories/:id', controller.categories.destroy);
+
 };
