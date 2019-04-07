@@ -8,5 +8,3 @@ module.exports = app => {
   });
   return mongoose.model('Category', CategorySchema);
 };
-
-

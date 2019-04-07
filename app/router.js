@@ -16,4 +16,7 @@ module.exports = app => {
   // router.get('/api/users/categories/:id', controller.categories.edit);
   // router.get('/api/users/categories/:id', controller.categories.destroy);
 
+  // 文章
+  router.resources('articles', '/api/articles', controller.articles);
+
 };
