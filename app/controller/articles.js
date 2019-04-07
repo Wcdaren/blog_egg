@@ -4,19 +4,8 @@ const BaseController = require('./base');
 
 module.exports = class ArticlesController extends BaseController {
   async index() {
-    const { ctx } = this;
-    let { pageNum = 1, pageSize = 5, keyword = '' } = ctx.query;
-    pageNum = isNaN(pageNum) ? 1 : parseInt(pageNum);
-    pageSize = isNaN(pageSize) ? 5 : parseInt(pageSize);
-
-    let query = {};
-    if (keyword) {
-      query['$or'] = [{ title: new RegExp(keyword) }, { content: new RegExp(keyword) }]
-    }
-
     try {
-      let items = await ctx.model.Article.find(query).skip((pageNum - 1) * pageSize);
-
+      let items = await this.getPager('Article', [ 'title', 'content' ]);
       this.success({ items });
     } catch (error) {
       this.error(error);
@@ -34,6 +23,4 @@ module.exports = class ArticlesController extends BaseController {
       this.error(error);
     }
   }
-
-
 };
