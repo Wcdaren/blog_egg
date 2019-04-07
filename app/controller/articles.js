@@ -5,8 +5,7 @@ const BaseController = require('./base');
 module.exports = class ArticlesController extends BaseController {
   async index() {
     try {
-      let items = await this.getPager('Article', [ 'title', 'content' ]);
-      this.success({ items });
+      await this.getPager('Article', ['title', 'content']);
     } catch (error) {
       this.error(error);
     }
@@ -21,6 +20,30 @@ module.exports = class ArticlesController extends BaseController {
       this.success('文章发表成功');
     } catch (error) {
       this.error(error);
+    }
+  }
+
+  async update() {
+    const { ctx } = this;
+    let id = ctx.params.id;
+    let article = ctx.request.body;
+    try {
+      await ctx.model.Article.findByIdAndUpdate(id, article);
+      this.success('更新文章成功')
+    } catch (error) {
+      this.error(error)
+    }
+  }
+
+  // 删除文章
+  async destroy() {
+    const { ctx } = this;
+    let id = ctx.params.id;
+    try {
+      await ctx.model.Article.findByIdAndRemove(id);
+      this.success('删除文章成功')
+    } catch (error) {
+      this.error(error)
     }
   }
 };

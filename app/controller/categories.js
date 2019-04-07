@@ -4,8 +4,7 @@ const BaseController = require('./base');
 class UsersController extends BaseController {
   async index() {
     try {
-      let items = await this.getPager('Category', ['name']);
-      this.success({ items });
+      await this.getPager('Category', ['name']);
     } catch (error) {
       this.error(error);
     }

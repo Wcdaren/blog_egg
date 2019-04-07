@@ -15,8 +15,17 @@ class BaseController extends Controller {
       // query['$or'] = [{ title: new RegExp(keyword) }, { content: new RegExp(keyword) }]
       query['$or'] = fields.map(field => ({ [field]: new RegExp(keyword) }))
     }
+    let count = await ctx.model[modName].count(query)
+    let items = await ctx.model[modName].find(query).skip((pageNum - 1) * pageSize);
+    this.success({
+      pageNum,
+      pageSize,
+      items,
+      total: count,
+      pageCount: Math.ceil(count / pageSize),
+      // ceil 向上取整
+    });
 
-    return await ctx.model[modName].find(query).skip((pageNum - 1) * pageSize);
   }
   get user() {
     return this.ctx.session.user;
