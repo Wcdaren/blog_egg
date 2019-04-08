@@ -29,6 +29,7 @@ module.exports = appInfo => {
   // 关闭安全
   config.security = {
     csrf: false,
+    domainWhiteList: [ 'localhost:3000' ],
   };
 
   // add your user config here
